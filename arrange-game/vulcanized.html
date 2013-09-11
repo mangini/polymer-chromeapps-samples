@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--
+/*
+ * Copyright 2013 The Polymer Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
+-->
+<html>
+  <head>
+    <title>Arrange Game</title>
+    <meta charset="UTF-8">
+    <script src="polymer.min.js"></script>
+    
+    
+<!--
+/*
+ * Copyright 2013 The Polymer Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
+-->
+<polymer-element name="arrange-game-tile" attributes="tile" assetpath="src/">
+  <template>
+    <style id="style">
+      div {
+        position: absolute;
+        display: inline-block;
+        box-sizing: border-box;
+        -webkit-transition: -webkit-transform .1s, opacity .2s;
+        -webkit-user-select: none;
+        cursor: pointer;
+        font-size: 100px;
+        line-height: 200px;
+      }
+      
+      #inner {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        bottom: 4px;
+        left: 4px;
+        background: -webkit-gradient(linear, left bottom, right top, from(skyblue), to(steelblue), color-stop(0.5, steelblue), color-stop(0.5, steelblue));
+        border: 2px solid black;
+        border-radius: 8px;
+        text-align: center;
+        vertical-align: middle;
+        opacity: 1;
+      }
+      
+      #inner.winner {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: none;
+        border-radius: 0;
+        background: lightseagreen;
+      }
+      
+      .invisible {
+        visibility: hidden;
+        opacity: 0;
+      }
+      
+      .tile {
+        width: 25%;
+        height: 25%;
+      }
+      
+    </style>
+    <div class="tile {{invisible: tile.invisible}}" style="-webkit-transform: translate3d({{position.left}}px, {{position.top}}px, 0);">
+      <div id="inner" class="{{winner: tile.winner}}">{{tile.position + 1}}</div>
+    </div>
+  </template>
+  
+</polymer-element>
+
+<!--
+/*
+ * Copyright 2013 The Polymer Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
+-->
+
+<polymer-element name="arrange-game" assetpath="src/">
+  <template>
+    <style>
+      @host {
+        :scope {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+          background: whitesmoke;
+        }
+      }
+      
+      header {
+        height: 60px;
+        box-sizing: border-box;
+        font-size: 36px;
+        padding: 10px;
+      }
+      
+      section {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      
+      button {
+        float: right;
+      }
+      
+    </style>
+    <header>Arrange Game <button on-tap="startGame">Restart</button></header>
+    <section id="board">
+      <template repeat="{{tiles}}">
+         <arrange-game-tile tile="{{}}" on-pointerdown="tileDown" on-request-tile-metrics="requestTileMetrics">
+         </arrange-game-tile>
+       </template>
+    </section>
+  </template>
+  
+</polymer-element>
+<style>
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+      }
+    </style>
+  
+<script src="vulcanized.js"></script>
+</head>
+  <body>
+    <arrange-game id="game"></arrange-game>
+  </body>
+</html>
